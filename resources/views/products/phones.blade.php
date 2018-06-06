@@ -1,28 +1,40 @@
 @extends('layouts.app') 
      @section('content')
-     <h1 class="text-center">Products</h1>
-        <div class="well">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Product Name</th>
-                            <th>Brand</th>
-                            <th>Merchant</th>
-                            <th>Price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                       
-                            <th>{{$product->name_product}}</th>
-                            <th>{{$product->name_brand}}</th>
-                           <th>{{$merchants->merchant}}</th>
     
-                    </tbody>
-                  
-                </table>
-        </div> 
+     <h1 class="text-center">Phones</h1>
+    <br>
+       <div class="container">
+        
+     <div class="row">
+            
+     @foreach($phones as $phone)
      
-      
-  
-    @endsection 
+          <div class="col-md-3  offset-md-1 thumbnail text-center">
+
+                   <h3><strong>{{$phone->name_brand}}</strong></h3>
+
+                    <img src="../{{$phone->cover_image}}" class="img-thumbnail">
+
+                    <h4><strong>{{$phone->name_product}}</strong></h4>
+                    
+                    <p>{{$phone->product_description}}</p>
+
+                    <a href="/products/{{$phone->id}}"><button class="btn btn-primary">See prices from merchants</button></a>
+        
+        
+          </div>
+     
+                    
+        
+                @endforeach
+
+
+              </div> <br>
+             
+              
+               
+              </div>
+       
+
+              @endsection 
+ 

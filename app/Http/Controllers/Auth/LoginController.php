@@ -4,7 +4,13 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
+use App\Product;
+use App\Merchant;
+use App\Cart;
+use App\User;
+use App\Order;
+use Session;
+use Auth;
 class LoginController extends Controller
 {
     /*
@@ -36,4 +42,7 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+  
+    
 }
