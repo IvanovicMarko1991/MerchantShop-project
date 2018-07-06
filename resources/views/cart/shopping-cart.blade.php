@@ -17,7 +17,7 @@
 				 				<div class="product">
 				 					<div class="row">
 					 					<div class="col-md-3">
-					 						<img class="img-fluid mx-auto d-block image" src="img/iphone6.jpg">
+					 						<img class="img-fluid mx-auto d-block image" src="{{$merchant['item']['cover_image']}}">
 					 					</div>
 					 					<div class="col-md-8">
 					 						<div class="info">

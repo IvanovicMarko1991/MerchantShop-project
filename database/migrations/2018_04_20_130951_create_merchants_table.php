@@ -19,7 +19,6 @@ class CreateMerchantsTable extends Migration
             $table->string('merchant');
             $table->decimal('current_price');
             $table->decimal('old_price');
-            $table->integer('stock');
             $table->string('product_type');
             $table->string('product_name');
             $table->string('product_details');

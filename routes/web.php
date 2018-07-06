@@ -111,11 +111,11 @@ Route::prefix('admin')->group(function() {
         'uses' =>'AdminController@create',
         'as' => 'admin.create'
     ]);
-    Route::get('products/merchant',[
+    Route::get('merchant/merchant',[
         'uses' =>'AdminController@create_merchant',
         'as'=> 'admin.merchant'
     ]);
    Route::post('products/create', 'AdminController@product');
-   Route::post('products/merchant', 'AdminController@merchant');
+   Route::post('merchant/merchant', 'AdminController@merchant');
   });
 

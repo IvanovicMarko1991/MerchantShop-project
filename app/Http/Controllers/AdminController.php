@@ -81,12 +81,10 @@ class AdminController extends Controller
             'merchant' => 'required',
             'current_price' => 'required',
             'old_price' => 'required',
-            'stock' => 'required',
             'product_type' => 'required',
             'product_name' => 'required',
             'product_details' => 'required',
             'product_specifications' => 'required',
-            'product_color' => 'required',
             'product_warranty' => 'required',
             'cover_image' => 'image|nullable|max:1999',
             'timestamps' => 'required'
@@ -113,17 +111,15 @@ class AdminController extends Controller
         $merchant->merchant = $request->input('merchant');
         $merchant->current_price= $request->input('current_price');
         $merchant->old_price= $request->input('old_price');
-        $merchant->stock= $request->input('stock');
         $merchant->product_type= $request->input('product_type');
         $merchant->product_name=$request->input('product_name');
         $merchant->product_details=$request->input('product_details');
         $merchant->product_specifications=$request->input('product_specifications');
-        $merchant->product_color=$request->input('product_color');
         $merchant->product_warranty=$request->input('product_warranty');
         $merchant->cover_image = $fileNameToStore;
         $merchant->save();
 
-        return redirect('/product')->with('success', 'Merchant added');
+        return redirect('/products')->with('success', 'Merchant added');
         
         
         

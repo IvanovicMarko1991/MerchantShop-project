@@ -40,7 +40,7 @@ class ProductTableSeeder extends Seeder
         'category_product'=>'TV',
         'name_brand'=>'LG',
         'name_product'=>'SmartTV,FULL HD',
-        'product_description'=>'The perfect SmartTV for your home !',
+        'product_description'=>'The perfect SmartTV for your home ',
         'cover_image'=>'img/lg.jpeg'
     ]);
 
@@ -51,7 +51,7 @@ class ProductTableSeeder extends Seeder
         'category_product'=>'TV',
         'name_brand'=>'LG',
         'name_product'=>'SmartTV,4K',
-        'product_description'=>'The perfect SmartTV for your home !',
+        'product_description'=>'The perfect SmartTV for your home',
         'cover_image'=>'img/lg.jpeg'
     ]);
 
@@ -64,7 +64,7 @@ class ProductTableSeeder extends Seeder
         'category_product'=>'Tablets',
         'name_brand'=>'Samsung',
         'name_product'=>'Galaxy Tab E T560',
-        'product_description'=>'Meet the tablet that is going to make your life easier !',
+        'product_description'=>'Meet the tablet that is going to make your life easier ',
         'cover_image'=>'img/tablet.jpg'
     ]);
 
@@ -75,7 +75,7 @@ class ProductTableSeeder extends Seeder
         'category_product'=>'Tablets',
         'name_brand'=>'Samsung',
         'name_product'=>'Galaxy Tab E T561',
-        'product_description'=>'All you need just in one Tablet!',
+        'product_description'=>'All you need just in one Tablet',
         'cover_image'=>'img/tablet.jpg'
     ]);
 
@@ -86,7 +86,7 @@ class ProductTableSeeder extends Seeder
         'category_product'=>'Tablets',
         'name_brand'=>'Samsung',
         'name_product'=>'Galaxy Tab E T561',
-        'product_description'=>'All you need just in one Tablet!',
+        'product_description'=>'All you need just in one Tablet',
         'cover_image'=>'img/tablet.jpg'
     ]);
 

@@ -6,15 +6,15 @@
     
      <div class="container">
        
-         <h1 class="text-center " >Shop Merchant</h1>
+         <h1 class="text-center title">Shop Merchant</h1>
        
-         <h2 class="text-center " ><strong>You search the product we bring the offers</strong></h1>
+         <h2 class="text-center subtitle1">You search the product we bring the offers</h1>
          <br><br>
          
             <div class="container">
               
                   
-               <h3><strong>Latest Offers</strong></h3>
+               <h3 class="subtitle">Latest Offer</h3>
                <br>
                 
                         <div class="row">
@@ -47,4 +47,20 @@
             </div>
            
         </div>
+            <style scoped>
+                .thumbnail{
+                    padding: 0;
+                    margin: 4px;
+                }
+               .subtitle{
+                   font-size: 2.5em;
+                   font-weight: bold;
+               }
+               .title{
+                   font-size:4em;
+               }
+               .subtitle1{
+                   font-size:1.8em;
+               }
+            </style>
     @endsection 

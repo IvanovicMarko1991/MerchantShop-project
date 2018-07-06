@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use DB;
@@ -23,33 +24,35 @@ class ProductController extends Controller
      */
     public function index()
     {
-        
-      
-      $products=Product::all();
-        return view('products.products')->with('products',$products);
-       
+
+
+        $products = Product::all();
+        return view('products.index')->with('products', $products);
+
     }
 
-    public function carousel(){
-        $products=Product::orderBy('created_at', 'desc')->get();
-        return view('products.index')->with('products',$products);
+    public function carousel()
+    {
+        $products = Product::orderBy('created_at', 'desc')->get();
+        return view('products.index')->with('products', $products);
     }
 
 
-    public function search(Request $request){
+    public function search(Request $request)
+    {
 
         $request->validate([
-            'query'=>'required|min:3',
+            'query' => 'required|min:3',
         ]);
 
-        $query=$request->input('query');
+        $query = $request->input('query');
 
-        $products=Product::where('name_product', 'like', "%$query%")->get();
-        return view('products.search')->with('products',$products);
+        $products = Product::where('name_product', 'like', "%$query%")->get();
+        return view('products.search')->with('products', $products);
     }
-   
 
-     
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -69,7 +72,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        
+
     }
 
     /**
@@ -80,32 +83,34 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        
-        $product=Product::find($id);
-       
-        return view('products.show')->with('product',$product);
 
-      
+        $product = Product::find($id);
+
+        return view('products.show')->with('product', $product);
+
+
     }
 
-           
 
-    public function getAddToCart(Request $request, $id){
-      
-        $merchant=Merchant::find($id);
-        $oldCart=Session::has('cart') ? Session::get('cart') : null;
-        $cart=new Cart($oldCart);
+
+    public function getAddToCart(Request $request, $id)
+    {
+
+        $merchant = Merchant::find($id);
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        $cart = new Cart($oldCart);
         $cart->add($merchant, $merchant->id);
-       
-      
-        $request->session()->put('cart', $cart);   
-       
+
+
+        $request->session()->put('cart', $cart);
+
         return redirect()->route('product.shoppingCart');
-        
+
     }
 
-    
-    public function getReduceByOne($id) {
+
+    public function getReduceByOne($id)
+    {
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
         $cart->reduceByOne($id);
@@ -117,7 +122,8 @@ class ProductController extends Controller
         return redirect()->route('product.shoppingCart');
     }
 
-    public function getRemoveItem($id) {
+    public function getRemoveItem($id)
+    {
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
         $cart->removeItem($id);
@@ -129,72 +135,82 @@ class ProductController extends Controller
         return redirect()->route('product.shoppingCart');
     }
 
-    public function getCart(){
-        
-        if(!Session::has('cart')){
+    public function getCart()
+    {
+
+        if (!Session::has('cart')) {
             return view('cart.shopping-cart');
         }
-        $oldCart=Session::get('cart');
-        $cart=new Cart($oldCart);
-       
-        return view('cart.shopping-cart',['merchants'=>$cart->items, 'totalPrice' => $cart->totalPrice]);
+        $oldCart = Session::get('cart');
+        $cart = new Cart($oldCart);
+
+        return view('cart.shopping-cart', ['merchants' => $cart->items, 'totalPrice' => $cart->totalPrice]);
     }
 
-    public function getCheckout(){
-        if(!Session::has('cart')){
+    public function getCheckout()
+    {
+        if (!Session::has('cart')) {
             return view('cart.shopping-cart');
         }
-        $oldCart=Session::get('cart');
-        $cart=new Cart($oldCart);
-        $total=$cart->totalPrice;
-        return view('cart.checkout',['total'=>$total]);
+        $oldCart = Session::get('cart');
+        $cart = new Cart($oldCart);
+        $total = $cart->totalPrice;
+
+
+
+    
+
+       return view('cart.checkout', ['total' => $total]);
     }
 
 
-    public function postCheckout(Request $request){
-        if(!Session::has('cart')){
+    public function postCheckout(Request $request)
+    {
+        if (!Session::has('cart')) {
             return view('cart.shopping-cart');
         }
-        $oldCart=Session::get('cart');
-        $cart=new Cart($oldCart);
+        $oldCart = Session::get('cart');
+        $cart = new Cart($oldCart);
 
 
         \Stripe\Stripe::setApiKey("sk_test_QfKIFCMqI1EqchjyMhXZsom4");
 
-     
+
         $charge = \Stripe\Charge::create([
-            'amount' => $cart->totalPrice  * 100,
+            'amount' => $cart->totalPrice * 100,
             'currency' => 'usd',
             'description' => 'Example charge',
             'source' => $_POST['stripeToken'],
         ]);
+
+
+
+
+
+        $order = new Order();
+        $order->cart = serialize($cart);
+        $order->adress = $request->input('adress');
+        $order->name = $request->input('name');
+        $order->payment_id = $charge->id;
+
         
-        
-    
-        
-        
-        $order=new Order();
-        $order->cart=serialize($cart);
-        $order->adress=$request->input('adress');
-        $order->name=$request->input('name');
-        $order->payment_id=$charge->id;
-            
-            $q=$cart->totalQty;
-            $stock=$cart->items[1]['item']['id'];
-            $s=DB::table('merchants')->where('id','=',$stock)->decrement('stock',$q);
-      
-      
+
+
+       
+
+     
+             
         Auth::user()->orders()->save($order);
 
-       
-       Session::forget('cart');
 
-       
-      return redirect()->route('index')->with('success','Great Shopping '.$order->name .'!');
+        Session::forget('cart');
+
+
+        return redirect()->route('index')->with('success', 'Great Shopping ' . $order->name . '!');
     }
 
 
-   
+
 
     /**
      * Show the form for editing the specified resource.
@@ -216,11 +232,11 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-    
-       
+
+
     }
 
-   
+
 
     /**
      * Remove the specified resource from storage.
@@ -241,5 +257,5 @@ class ProductController extends Controller
         return redirect()->route('product.shoppingCart');
     }
 
-   
+
 }
