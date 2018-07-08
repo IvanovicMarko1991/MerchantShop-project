@@ -18,13 +18,13 @@ php artisan db:seed
 php artisan key:generate
 
 <h3>How to add a admin to your website</h3>
-php artisan tinker
-$admin=new App\Admin
-$admin->name="Name Admin"
-$admin->email= "admin@mail.com"
-$admin->password= Hash::make('adminpassword')
-$admin->job_title= "Admin Job"
-$admin->save()
+<p>php artisan tinker</p>
+<p>$admin=new App\Admin</p>
+<p>$admin->name="Name Admin"</p>
+<p>$admin->email= "admin@mail.com"</p>
+<p>$admin->password= Hash::make('adminpassword')</p>
+<p>$admin->job_title= "Admin Job"</p>
+<p>$admin->save()</p>
 
 To enter the admin login page you need to acces
 http://shop.test/admin/login
