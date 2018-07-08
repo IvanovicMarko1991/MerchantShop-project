@@ -4,7 +4,7 @@
 #Quick start
 
 <h3>Install Dependencies</h3>
-composer install
+<bold>composer install</bold>
 
 <h3>Run Migrations</h3>
 php artisan migrate
@@ -16,4 +16,6 @@ php artisan db:seed
 
 <h3> If you get an error about an encryption key</h3>
 php artisan key:generate
+
+<h3>How to add a admin to your website</h3>
 
